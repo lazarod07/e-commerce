@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css' ) }}">
+    <title>Regustri</title>
+</head>
+
+<body>
+    <div class="caja">
+        <div class="registro">
+            <h2 class="titulo">Regístrate Aquí</h2>
+            <form action="" method="post">
+                <div>
+                    <label for="nombres"> Nombres </label> 
+                    <input type="text" class="campo" placeholder="Ingrese sus nombres">
+                </div>
+
+                <div>
+                    <label for="apellidos"> Apellidos </label> 
+                    <input type="text" class="campo" placeholder="Ingrese sus apellidos">
+                </div>
+
+                <div>
+                    <label for="correo"> Correo Electrónico </label> 
+                    <input type="text" class="campo" placeholder="Ingrese su correo electrónico">
+                </div>
+
+                <div>
+                    <label for="password"> Contraseña </label> 
+                    <input type="password" class="campo" placeholder="Ingrese su contraseña">
+                    <img src="{{ url_for('static', filename='img/Ver_Pass.png') }}" alt="Ojito" class= "imgPass"
+                    onclick="mostrarPassword();">
+                </div>
+
+                <div>
+                    <label for="paisResidencia"> País de residencia </label> 
+                    <input type="paisResidencia" class="campo" placeholder="Ingrese su país de residencia">
+                </div>
+
+                <div>
+                    <input type="submit" class="btn" value="Cancelar">
+                    <input type="submit" class="btn" value="Crear Cuenta">
+                </div>
+
+            </form>    
+
+        </div>
+    </div>
+
+</body>
+
+</html>

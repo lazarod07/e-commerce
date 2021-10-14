@@ -6,27 +6,34 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css' ) }}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <script src="{{ url_for('static', filename='js/validaciones.js') }}"> </script>
     <title>Login</title>
 </head>
 
 <body>
+<!-- -->
     <div class="caja">
         <div class="login">
             <h2 class="titulo">Bienvenido</h2>
             <form action="" method="post">
                 <div>
+                    <label for="correo"> Correo Electrónico </label> 
                     <input type="text" class="campo" placeholder="Ingrese su correo electronico">
                 </div>
 
                 <div>
-                    <input type="password" class="campo" placeholder="Ingrese su contraseña">
+                    <label for="password"> Contraseña </label> 
+                    <input type="password" class="campo" id="password" placeholder="Ingrese su contraseña">
+                    <i class="far fa-eye-slash " onclick="mostrarPassword();" id="ojito"></i>
+
                 </div>
 
                 <div>
                     <input type="submit" class="btn" value="Ingresar">
                 </div>
             </form>
-            <p>Si aun no tienes una cuenta, <a href="registro.html">registrate aqui.</a></p>
+            <p>Si aun no tienes una cuenta, <a href="/registro">registrate aqui.</a></p>
 
         </div>
     </div>
