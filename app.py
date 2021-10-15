@@ -28,3 +28,7 @@ def productodetalle():
 @app.route('/favoritos', methods=['GET'])
 def favoritos():
     return render_template('favoritos.html')
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
