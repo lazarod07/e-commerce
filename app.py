@@ -16,3 +16,15 @@ def login():
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
     return render_template('registro.html')
+
+@app.route('/producto' methods=['GET'])
+def producto():
+    return render_template('producto.html')
+
+@app.route('/productodetalle' methods=['GET'])
+def productodetalle():
+    return render_template('producto-detalle.html')
+
+@app.route('/favoritos' methods=['GET'])
+def favoritos():
+    return render_template('favoritos.html')
