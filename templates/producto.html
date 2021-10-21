@@ -32,161 +32,26 @@
 
     <section class="products">
 
-    
+        
         <div class="box-container">
-    
+            {% for fila in filas %}
             <div class="box">
                 <div class="icons">
                     <a href="#" class="fas fa-shopping-cart"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="/productodetalle" class="fas fa-eye"></a>
+                    <a href="/favoritos/{{fila.id}}" class="fas fa-heart"></a>
+                    <a href="/productodetalle/{{fila.id}}" class="fas fa-eye"></a>
                 </div>
                 <div class="image">
                     <img src="{{ url_for('static', filename='img/product-1.jpg') }}" alt="">
                 </div>
                 <div class="content">
-                    <h3>Producto</h3>
-                    <div class="price">$18.99</div>
+                    <h3>{{fila.nombre}}</h3>
+                    <div class="price">{{fila.precio}}</div>
                 </div>
             </div>
-    
-            <div class="box">
-                <div class="icons">
-                    <a href="#" class="fas fa-shopping-cart"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="/productodetalle" class="fas fa-eye"></a>
-                </div>
-                <div class="image">
-                    <img src="{{ url_for('static', filename='img/product-1.jpg') }}" alt="">
-                </div>
-                <div class="content">
-                    <h3>Producto</h3>
-                    <div class="price">$18.99</div>
-                </div>
-            </div>
-    
-            <div class="box">
-                <div class="icons">
-                    <a href="#" class="fas fa-shopping-cart"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="/productodetalle" class="fas fa-eye"></a>
-                </div>
-                <div class="image">
-                    <img src="{{ url_for('static', filename='img/product-1.jpg') }}" alt="">
-                </div>
-                <div class="content">
-                    <h3>Producto</h3>
-                    <div class="price">$18.99</div>
-                </div>
-            </div>
-    
-            <div class="box">
-                <div class="icons">
-                    <a href="#" class="fas fa-shopping-cart"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="/productodetalle" class="fas fa-eye"></a>
-                </div>
-                <div class="image">
-                    <img src="{{ url_for('static', filename='img/product-1.jpg') }}" alt="">
-                </div>
-                <div class="content">
-                    <h3>Producto</h3>
-                    <div class="price">$18.99</div>
-                </div>
-            </div>
-    
-            <div class="box">
-                <div class="icons">
-                    <a href="#" class="fas fa-shopping-cart"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="/productodetalle" class="fas fa-eye"></a>
-                </div>
-                <div class="image">
-                    <img src="{{ url_for('static', filename='img/product-1.jpg') }}" alt="">
-                </div>
-                <div class="content">
-                    <h3>Producto</h3>
-                    <div class="price">$18.99</div>
-                </div>
-            </div>
-    
-            <div class="box">
-                <div class="icons">
-                    <a href="#" class="fas fa-shopping-cart"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="/productodetalle" class="fas fa-eye"></a>
-                </div>
-                <div class="image">
-                    <img src="{{ url_for('static', filename='img/product-1.jpg') }}" alt="">
-                </div>
-                <div class="content">
-                    <h3>Producto</h3>
-                    <div class="price">$18.99</div>
-                </div>
-            </div>
-    
-            <div class="box">
-                <div class="icons">
-                    <a href="#" class="fas fa-shopping-cart"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="/productodetalle" class="fas fa-eye"></a>
-                </div>
-                <div class="image">
-                    <img src="{{ url_for('static', filename='img/product-1.jpg') }}" alt="">
-                </div>
-                <div class="content">
-                    <h3>Producto</h3>
-                    <div class="price">$18.99</div>
-                </div>
-            </div>
-    
-            <div class="box">
-                <div class="icons">
-                    <a href="#" class="fas fa-shopping-cart"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="/productodetalle" class="fas fa-eye"></a>
-                </div>
-                <div class="image">
-                    <img src="{{ url_for('static', filename='img/product-1.jpg') }}" alt="">
-                </div>
-                <div class="content">
-                    <h3>Producto</h3>
-                    <div class="price">$18.99</div>
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="icons">
-                    <a href="#" class="fas fa-shopping-cart"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="/productodetalle" class="fas fa-eye"></a>
-                </div>
-                <div class="image">
-                    <img src="{{ url_for('static', filename='img/product-1.jpg') }}" alt="">
-                </div>
-                <div class="content">
-                    <h3>Producto</h3>
-                    <div class="price">$18.99</div>
-                </div>
-            </div>
-
-            <div class="box">
-                <div class="icons">
-                    <a href="#" class="fas fa-shopping-cart"></a>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="/productodetalle" class="fas fa-eye"></a>
-                </div>
-                <div class="image">
-                    <img src="{{ url_for('static', filename='img/product-1.jpg') }}" alt="">
-                </div>
-                <div class="content">
-                    <h3>Producto</h3>
-                    <div class="price">$18.99</div>
-                </div>
-            </div>
-    
+            {% endfor %}
         </div>
-    
+        
     </section>
 
 

@@ -34,20 +34,20 @@
 
     
         <div class="box-container-det">
-    
+            {% for fila in filas %}
             <div class="box-det">
                 <div class="image">
                     <img src="{{ url_for('static', filename='img/product-1.jpg' ) }}" alt="">
                 </div>
                 <div class="content-det">
-                    <h3 class="producto-titulo">Producto</h3>
-                    <div class="producto-descripcion"><p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatibus, facere. Totam magnam pariatur et, atque vitae ullam necessitatibus? Libero dignissimos harum ullam distinctio numquam minima temporibus, ea culpa id placeat.</p></div>
-                    <div class="price">$18.99</div>
+                    <h3 class="producto-titulo">{{fila.nombre}}</h3>
+                    <div class="producto-descripcion"><p>{{fila.descripcion}}</p></div>
+                    <div class="price">{{fila.precio}}</div>
                     <div class="boton-producto"><a href="#" class="btn-producto">Agregar al Carrito</a></div>
                     <div class="boton-producto"><a href="#" class="btn-producto">Comprar</a></div>
                 </div>
             </div>
-    
+            {% endfor %}
         </div>
     
     </section>
