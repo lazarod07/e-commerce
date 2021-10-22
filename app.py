@@ -1,7 +1,7 @@
 from flask import Flask
 from flask import render_template, request, redirect, url_for, flash, session
 import sqlite3
-
+from datetime import datetime
 
 app = Flask(__name__)
 app.secret_key = "Secret Key"
@@ -12,6 +12,16 @@ cursor = conexion.cursor()
 conexion.commit()
 
 
+
+
+
+@app.before_request
+def verificar():
+    ruta = request.path
+    # Si no ha iniciado sesión y no quiere ir a algo relacionado al login, lo redireccionamos al login
+    if not 'usuario' in session and ruta != "/login" and ruta != "/loguear" and ruta != "/registro" and not ruta.startswith("/static"):
+        flash("Inicia sesión para continuar")
+        return redirect("/login")
 
 
 
@@ -29,8 +39,23 @@ conexion.commit()
 def index():
     return render_template('inicio.html')
 
-@app.route('/login', methods=['GET', 'POST'])
+
+
+
+@app.route("/login")
 def login():
+    return render_template("login.html")
+
+
+
+@app.route('/cerrar_session')
+def cerrar_session():
+    session.clear()
+    return redirect(url_for('login'))
+
+
+@app.route('/loguear', methods=['POST'])
+def loguear():
     if request.method == 'POST':
         correo = request.form['correo']
         contrasena = request.form['contrasena']
@@ -43,14 +68,19 @@ def login():
             contrasena = contrasena.strip()
         cursor.execute("SELECT * FROM usuarios WHERE correo=? AND contrasena=?", (correo,contrasena))
         filas = cursor.fetchone()
+        
 
         if not filas:
             flash("Correo o contrasena incorrectos")
         else:
-            return render_template("inicio.html", nombre = filas)
+            session["usuario"] = filas[1]
+            session["id"] = filas[0]
+            session["rol"] = filas[6]
             return redirect(url_for('index'))
     return render_template('login.html')
         
+
+
 
 @app.route('/registro', methods=['GET', 'POST'])
 def registro():
@@ -80,6 +110,25 @@ def registro():
 
 
 
+@app.route('/comentar', methods=['POST'])
+def comentar():
+    if request.method == 'POST':
+        id = request.form['identificador']
+        comentario = request.form['comentario']
+        idusuario = session['id']
+        fecha = datetime.today().strftime('%Y-%m-%d %H:%M')
+        cursor.execute("INSERT INTO comentarios(usuario, id_producto, comentario, fecha) VALUES (?,?,?,?)", (session["usuario"], id, comentario, fecha))
+        conexion.commit()
+    return redirect(url_for('producto'))
+    #return redirect(url_for('productodetalle/<id>'))
+
+
+
+
+
+
+
+
 
 @app.route('/producto', methods=['GET'])
 def producto():
@@ -90,18 +139,57 @@ def producto():
     return render_template("producto.html", filas = filas)
 
 
+
+
+
+
 @app.route('/productodetalle/<id>', methods=['GET'])
 def productodetalle(id):
     conexion.row_factory = sqlite3.Row
     cursor = conexion.cursor()
-    cursor.execute("SELECT * FROM productos WHERE id=?", id)
-    filas = cursor.fetchall()
-    return render_template("producto-detalle.html", filas = filas)
+    session["identificador"] = id
+    #cursor.execute("SELECT * FROM productos, comentarios WHERE productos.id=? AND  comentarios.id_producto=? LIMIT 2", (id,id))
+    cursor.execute("SELECT * FROM productos WHERE id=?", (id,))
+    producto = cursor.fetchall()
+    cursor.execute("SELECT usuario, id_producto, comentario, fecha FROM comentarios WHERE id_producto=?", (id,))
+    comentarios = cursor.fetchall()
+    producto.extend(comentarios)
+    del producto[0]
+    #producto = comentarios
+    return render_template("producto-detalle.html", filas = producto)
 
 
-@app.route('/favoritos', methods=['GET'])
+
+@app.route('/favoritos')
 def favoritos():
-    return render_template('favoritos.html')
+    conexion.row_factory = sqlite3.Row
+    cursor = conexion.cursor()
+    idusuario = session['id']
+    cursor.execute("SELECT productos.id, productos.nombre, productos.precio FROM productos, favoritos WHERE favoritos.id_producto = productos.id AND favoritos.id_usuario = ?", (idusuario,))
+    filas = cursor.fetchall()
+    return render_template("favoritos.html", filas = filas)
+
+
+
+
+
+@app.route('/agregar_favoritos/<id>', methods=['GET'])
+def agregar_favoritos(id):
+    idusuario = session['id']
+    cursor.execute("INSERT INTO favoritos(id_usuario, id_producto) VALUES (?,?)", (idusuario, id))
+    conexion.commit()
+    return redirect(url_for('producto'))
+
+
+
+@app.route('/eliminar_favorito/<id>', methods=['GET'])
+def eliminar_favorito(id):
+    idusuario = session['id']
+    cursor.execute("DELETE FROM favoritos WHERE id_usuario=? AND id_producto=?", (idusuario, id))
+    conexion.commit()
+    return redirect(url_for('favoritos'))
+
+
 
 
 @app.route('/admin', methods=['GET', 'POST'])
@@ -114,14 +202,16 @@ def admin():
 
 
 
+
+
+
+
 @app.route('/admin_usuarios', methods=['GET', 'POST'])
 def admin_usuarios():
     conexion.row_factory = sqlite3.Row
     cursor = conexion.cursor()
     cursor.execute("SELECT * FROM usuarios")
     filas = cursor.fetchall()
-    if (filas[1] == 2):
-        filas[1] = 'Administrador'
     return render_template("admin-usuarios.html", filas = filas)
 
 

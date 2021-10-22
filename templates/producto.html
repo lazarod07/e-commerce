@@ -1,33 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/stilos.css' ) }}">
-</head>
-<body>
-    
-    <header class="header">
+{% extends 'base.html' %}
+{% include 'header.html' %}
 
-        <a href="#" class="logo"><i class="fas fa-shopping-basket"></i>Grp3</a>
 
-        <nav class="navbar">
-            <a href="/inicio">Inicio</a>
-            <a href="/producto">Productos</a>
-            <a href="/favoritos">Favoritos</a>
-            <a href="#">Contacto</a>
-        </nav>
 
-        <div class="icons">
-            <div id="menu-btn" class="fas fa-bars"></div>
-            <div id="cart-btn" class="fas fa-shopping-cart"></div>
-            <div id="login-btn" class="fas fa-user"></div>
-        </div>
+{% block title %} Home {% endblock %}
 
-    </header>
+
+
+{% block body %}
 
 
     <section class="products">
@@ -38,7 +18,7 @@
             <div class="box">
                 <div class="icons">
                     <a href="#" class="fas fa-shopping-cart"></a>
-                    <a href="/favoritos/{{fila.id}}" class="fas fa-heart"></a>
+                    <a href="/agregar_favoritos/{{fila.id}}" class="fas fa-heart"></a>
                     <a href="/productodetalle/{{fila.id}}" class="fas fa-eye"></a>
                 </div>
                 <div class="image">
@@ -57,41 +37,8 @@
 
 
 
-
-    <section class="footer">
-
-        <div class="box-container">
-    
-            <div class="box">
-                <h3>Grupo3 SHOP</h3>
-                <a href="/inicio"> <i class="fas fa-arrow-right"></i> Inicio</a>
-                <a href="/producto"> <i class="fas fa-arrow-right"></i> Productos</a>
-                <a href="/favoritos"> <i class="fas fa-arrow-right"></i> Favoritos</a>
-            </div>
-    
-            <div class="box">
-                <h3>Contacto</h3>
-                <a href="#"> <i class="fas fa-arrow-right"></i> Telefono </a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> Correo </a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> Direccion </a>
-            </div>
-    
-            <div class="box">
-                <h3>Acerca de</h3>
-                <a href="#"> <i class="fab fa-facebook-f"></i> facebook </a>
-                <a href="#"> <i class="fab fa-twitter"></i> twitter </a>
-                <a href="#"> <i class="fab fa-instagram"></i> instagram </a>
-            </div>
-    
-    
-        </div>
-    
-    </section>
-    
-    <section class="credit">Creado por Grupo3 UniNorte MinTic!</section>
+{% include 'footer.html' %}
 
 
 
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-</body>
-</html>
+{% endblock %}

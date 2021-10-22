@@ -1,33 +1,14 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inicio</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/stilos.css') }}">
-</head>
-<body>
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+
+
+{% block title %} Home {% endblock %}
+
+
+
+{% block body %}
     
-    <header class="header">
-
-        <a href="#" class="logo"><i class="fas fa-shopping-basket"></i>Grp3</a>
-
-        <nav class="navbar">
-            <a href="/inicio">Inicio</a>
-            <a href="/producto">Productos</a>
-            <a href="/favoritos">Favoritos</a>
-            <a href="#">Nosotros</a>
-        </nav>
-
-        <div class="icons">
-            <div id="menu-btn" class="fas fa-bars"></div>
-            <div id="cart-btn" class="fas fa-shopping-cart"></div>
-            <div id="login-btn" class="fas fa-user"></div>
-        </div>
-
-    </header>
 
 
     <section class="home">
@@ -39,7 +20,7 @@
 
                     <div class="content">
                         
-                        <h3>{{nombre[1]}}</h3>
+                        <h3>MISION TIC</h3>
                         
                         <h3>Hasta 50% off</h3>
                     </div>
@@ -63,7 +44,7 @@
             <div class="content">
                 <span>Cantidad Limitadas</span>
                 <h3>Hasta 50% off</h3>
-                <a href="#" class="btn">Ver</a>
+                <a href="#" class="btm">Ver</a>
             </div>
         </div>
     
@@ -72,7 +53,7 @@
             <div class="content">
                 <span>Cantidad Limitadas</span>
                 <h3>Hasta 50% off</h3>
-                <a href="#" class="btn">Ver</a>
+                <a href="#" class="btm">Ver</a>
             </div>
         </div>
     
@@ -212,42 +193,8 @@
 
 
 
+{% include 'footer.html' %}
 
+    
 
-    <section class="footer">
-
-        <div class="box-container">
-    
-            <div class="box">
-                <h3>Grupo3 SHOP</h3>
-                <a href="/inicio"> <i class="fas fa-arrow-right"></i> Inicio</a>
-                <a href="/producto"> <i class="fas fa-arrow-right"></i> Productos</a>
-                <a href="/favoritos"> <i class="fas fa-arrow-right"></i> Favoritos</a>
-            </div>
-    
-            <div class="box">
-                <h3>Contacto</h3>
-                <a href="#"> <i class="fas fa-arrow-right"></i> Telefono </a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> Correo </a>
-                <a href="#"> <i class="fas fa-arrow-right"></i> Direccion </a>
-            </div>
-    
-            <div class="box">
-                <h3>Acerca de</h3>
-                <a href="#"> <i class="fab fa-facebook-f"></i> facebook </a>
-                <a href="#"> <i class="fab fa-twitter"></i> twitter </a>
-                <a href="#"> <i class="fab fa-instagram"></i> instagram </a>
-            </div>
-    
-    
-        </div>
-    
-    </section>
-    
-    <section class="credit">Creado por Grupo3 UniNorte MinTic!</section>
-
-
-
-    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
-</body>
-</html>
+{% endblock %}

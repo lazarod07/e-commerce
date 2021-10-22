@@ -49,6 +49,10 @@ section {
     padding: 2rem 20%;
 }
 
+.header a{
+    text-decoration: none;
+}
+
 .header .logo {
     font-size: 2.5rem;
     font-weight: bolder;
@@ -163,6 +167,10 @@ section {
     gap: 1.5rem;
 }
 
+.banner-container .banner a {
+    text-decoration: none;
+}
+
 .banner-container .banner {
     position: relative;
     height: 25rem;
@@ -201,11 +209,11 @@ section {
     color: #222;
 }
 
-.banner-container .banner .content .btn {
+.banner-container .banner .content .btm {
     padding: .8rem 2.5rem;
 }
 
-.btn {
+.btm {
     margin-top: 1rem;
     display: inline-block;
     padding: .8rem 3rem;
@@ -215,7 +223,7 @@ section {
     cursor: pointer;
 }
 
-.btn:hover {
+.btm:hover {
     background: #222;
 }
 
@@ -233,6 +241,10 @@ section {
     -ms-grid-columns: (minmax(25rem, 1fr))[auto-fit];
     grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
     gap: 1.5rem;
+}
+
+.products .box-container a {
+    text-decoration: none;
 }
 
 .products .box-container .box {
@@ -338,6 +350,11 @@ section {
     justify-content: space-around;
     align-items: center;
 }
+
+.products-det .box-container-det .box-det .content-det a {
+    text-decoration: none;
+}
+
 
 .products-det .box-container-det .box-det .content-det .producto-titulo {
     font-size: 4rem;
@@ -546,6 +563,10 @@ section {
         grid-template-columns: repeat(auto-fit, minmax(25rem, 1fr));
     gap: 1.5rem;
 }
+
+.footer .box-container a {
+    text-decoration: none;
+}
   
   .footer .box-container .box h3 {
     font-size: 2.2rem;
@@ -584,22 +605,60 @@ section {
   }
 
 
+.caja {
+    font-weight: 400;
+    font-size: 1.5rem;
+    background: #f3f3f3;
+    padding: 1rem;
+    margin-bottom: 5rem;
+    border-radius: 20px;
+}
+
+.caja-datos {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.caja .caja-datos span {
+    font-size: 2.5rem;
+}
 
 
+.comentario {
+    min-height: 10rem;
+    overflow: hidden;
+    font-size: 2rem;
+    width: 100%;
+    background-color: #fff;
+    color: rgb(99, 100, 102);
+    padding: 2rem;
+    border-radius: 20px;
+}
 
+.comentar {
+    display: flex;
+    justify-content: right;
+}
 
+.comentar a {
+    font-size: 2rem;
+    color: #fff;
+}
 
+.btncomentar {
+    font-size: 2rem;
+    font-weight: 600;
+    background: #bac34e;
+    color: #fff;
+    padding: 0.5rem;
+    border-radius: 5%;
+}
 
-
-
-
-
-
-
-
-
-
-
+.btncomentar:hover {
+    background: #c5cf59;
+}
 
 
 
