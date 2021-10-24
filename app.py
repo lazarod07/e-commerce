@@ -1,6 +1,7 @@
 from flask import Flask
 from flask import render_template, request, redirect, url_for, flash, session
 import sqlite3
+import werkzeug.security as sec
 from datetime import datetime
 
 app = Flask(__name__)
@@ -66,17 +67,17 @@ def loguear():
         else:
             correo = correo.strip()
             contrasena = contrasena.strip()
-        cursor.execute("SELECT * FROM usuarios WHERE correo=? AND contrasena=?", (correo,contrasena))
+        cursor.execute("SELECT * FROM usuarios WHERE correo=?", [correo])
         filas = cursor.fetchone()
-        
 
         if not filas:
             flash("Correo o contrasena incorrectos")
         else:
-            session["usuario"] = filas[1]
-            session["id"] = filas[0]
-            session["rol"] = filas[6]
-            return redirect(url_for('index'))
+            if(sec.check_password_hash(filas[4], contrasena)):
+                session["usuario"] = filas[1]
+                session["id"] = filas[0]
+                session["rol"] = filas[6]
+                return redirect(url_for('index'))
     return render_template('login.html')
         
 
@@ -88,7 +89,7 @@ def registro():
         nombre = request.form['nombre']
         apellido = request.form['apellido']
         correo = request.form['correo']
-        contrasena = request.form['contrasena']
+        contrasena = sec.generate_password_hash(request.form['contrasena'])
         pais = request.form['pais']
 
         if not (nombre and contrasena):
@@ -194,6 +195,8 @@ def eliminar_favorito(id):
 
 @app.route('/admin', methods=['GET', 'POST'])
 def admin():
+    if(session["rol"] != 2 and session["rol"] != 3):
+        return render_template('inicio.html')
     conexion.row_factory = sqlite3.Row
     cursor = conexion.cursor()
     cursor.execute("SELECT * FROM productos")
@@ -208,6 +211,8 @@ def admin():
 
 @app.route('/admin_usuarios', methods=['GET', 'POST'])
 def admin_usuarios():
+    if(session["rol"] != 2 and session["rol"] != 3):
+        return render_template('inicio.html')
     conexion.row_factory = sqlite3.Row
     cursor = conexion.cursor()
     cursor.execute("SELECT * FROM usuarios")

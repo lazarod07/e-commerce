@@ -20,6 +20,10 @@
         {% if session["rol"] == 2 %}
         <a href="/admin">Administrador</a>
         {% endif %}
+
+        {% if session["rol"] == 3 %}
+        <a href="/admin">Super Administrador</a>
+        {% endif %}
     </nav>
 
     <div class="icons" id="menu-usuario">
