@@ -15,20 +15,38 @@
         
         <div class="box-container">
             {% for fila in filas %}
+            {% if fila.cantidad > 0 %}
             <div class="box">
+                
+                <div class="price">{{fila.cantidad}}</div>
+                
                 <div class="icons">
-                    <a href="#" class="fas fa-shopping-cart"></a>
+                    <a href="/agregar_carrito/{{fila.id}}" class="fas fa-shopping-cart"></a>
                     <a href="/agregar_favoritos/{{fila.id}}" class="fas fa-heart"></a>
-                    <a href="/productodetalle/{{fila.id}}" class="fas fa-eye"></a>
+                    <a href="/{{fila.id}}" class="fas fa-eye"></a>
                 </div>
                 <div class="image">
-                    <img src="{{ url_for('static', filename='img/product-1.jpg') }}" alt="">
+                    <img src="{{fila.imagen}}" width="250" height="260" alt="">
                 </div>
                 <div class="content">
                     <h3>{{fila.nombre}}</h3>
-                    <div class="price">{{fila.precio}}</div>
+                    <h3>$ {{fila.precio}}</h3>
                 </div>
             </div>
+            {% else %}
+            <div class="box">
+                <div class="icons">
+                    <div class="estado-producto"><div><span>SIN STOCK</span></div></div>
+                </div>
+                <div class="image">
+                    <img src="{{fila.imagen}}" width="250" height="260" alt="">
+                </div>
+                <div class="content">
+                    <h3>{{fila.nombre}}</h3>
+                    <h3>$ {{fila.precio}}</h3>
+                </div>
+            </div>
+            {% endif %}
             {% endfor %}
         </div>
         
