@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% include 'header.html' %}
+
+
+
+{% block title %} Home {% endblock %}
+
+
+
+{% block body %}
+
+
+    <section class="products">
+
+    
+        <div class="box-container">
+            <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Fecha</th>
+                  </tr>
+                </thead>
+                <tbody>
+                    {% for fila in filas %}
+                    <tr>
+                        <th scope="row">{{fila[0]}}</th>
+                        <td>{{fila[1]}}</td>
+                        <td>{{fila[2]}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    
+    </section>
+
+
+
+
+
+{% include 'footer.html' %}
+
+
+
+{% endblock %}

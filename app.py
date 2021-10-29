@@ -79,6 +79,8 @@ def loguear():
             flash("Correo o contrasena incorrectos")
         else:
             session["usuario"] = filas[1]
+            session["apellido"] = filas[2]
+            session["correo"] = filas[3]
             session["id"] = filas[0]
             session["rol"] = filas[6]
             return redirect(url_for('index'))
@@ -189,6 +191,15 @@ def carrito():
 
 
 
+@app.route('/compras', methods=['GET', 'POST'])
+def compras():
+    idusuario = session['id']
+    cursor.execute("SELECT productos.nombre, productos.precio, compras.fecha FROM productos, compras WHERE compras.id_usuario = ? AND productos.id = compras.id_producto", (idusuario,))
+    filas = cursor.fetchall()
+    return render_template("compras.html", filas = filas)
+
+
+
 
 @app.route('/comprar/<id>', methods=['GET', 'POST'])
 def comprar(id):
@@ -199,7 +210,7 @@ def comprar(id):
     cursor.execute("DELETE FROM carrito WHERE id_usuario = ? AND id_producto = ?", (idusuario,id))
     conexion.commit()
     carro()
-    return redirect(url_for('carrito'))
+    return redirect(url_for('factura', id = id))
 
 
 @app.route('/comprartodo', methods=['GET', 'POST'])
@@ -208,13 +219,37 @@ def comprartodo():
     cursor.execute("SELECT DISTINCT productos.id FROM productos, carrito WHERE carrito.id_producto = productos.id AND carrito.id_usuario = ? ", (idusuario,))
     filas = cursor.fetchall()
     fecha = datetime.today().strftime('%Y-%m-%d %H:%M')
+    cantidad = len(filas)
     for fila in filas:
         cursor.execute("INSERT INTO compras(id_usuario, id_producto, cantidad, fecha) VALUES (?,?,?,?)", (idusuario, fila[0], 1, fecha))
         cursor.execute("UPDATE productos SET cantidad = cantidad - 1 WHERE id = ?", (fila[0],))
         cursor.execute("DELETE FROM carrito WHERE id_usuario = ? AND id_producto = ?", (idusuario,fila[0]))
     conexion.commit()
     carro()
-    return redirect(url_for('carrito'))
+    return redirect(url_for('facturas', cantidad = cantidad))
+
+
+@app.route('/factura/<id>', methods=['GET', 'POST'])
+def factura(id):
+    idusuario = session['id']
+    numero = len(id)
+    for fila in id:
+        cursor.execute("SELECT productos.nombre, productos.precio, compras.fecha FROM compras, productos WHERE productos.id = compras.id_producto AND compras.id_usuario = ? AND compras.id_producto = ? ORDER BY compras.id DESC LIMIT ?", (idusuario, fila[0], numero))
+    filas = cursor.fetchall()
+    return render_template("factura.html", filas = filas)
+
+
+
+@app.route('/facturas/<cantidad>', methods=['GET', 'POST'])
+def facturas(cantidad):
+    idusuario = session['id']
+    cursor.execute("SELECT productos.nombre, productos.precio, fecha FROM productos LEFT JOIN compras ON compras.id_producto = productos.id WHERE compras.id_usuario = ? ORDER BY compras.id DESC LIMIT ?", (idusuario, cantidad))
+    filas = cursor.fetchall()
+    fecha = datetime.today().strftime('%Y-%m-%d')
+    total = sum(row[1] for row in filas)
+    return render_template("factura.html", filas = filas, total = total, fecha = fecha)
+
+
 
 
 

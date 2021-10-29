@@ -254,6 +254,10 @@ section {
     overflow: hidden;
 }
 
+.products .box-container .box .price {
+    font-weight: 900;
+    font-size: 14px;
+}
 
 .products .box-container .box .icons .estado-producto {
     padding: 1rem;
